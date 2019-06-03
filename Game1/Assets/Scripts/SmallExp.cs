@@ -4,7 +4,6 @@ using System.Collections;
 public class SmallExp : MonoBehaviour
 {
 
-    //GameObject Enemy;
     float time = 0.4f;
 
     // Use this for initialization

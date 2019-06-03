@@ -91,16 +91,18 @@ public class Player : MonoBehaviour
         if (AttackedCnt == 0)
         {
             // プレイヤーを削除
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             GameObject LExplosionPrefab2 = (GameObject)Resources.Load("LExplosion");
             Instantiate(LExplosionPrefab2, transform.position, Quaternion.identity);
-            Destroy(Obj);
+
             GameOver.finish();
+
+            Destroy(Obj);
             Destroy(gameObject);
         }
         else
         {
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             SExp = (GameObject)Resources.Load("SExplosion");
             Obj = (GameObject)Instantiate(SExp, Ply.transform.position, Quaternion.identity);
             // 作成したオブジェクトを子として登録

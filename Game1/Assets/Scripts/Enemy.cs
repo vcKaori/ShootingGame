@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         if (AttackedCnt == 0)
         {
             ScoreController.points += 10;
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             GameObject LExplosionPrefab1 = (GameObject)Resources.Load("LExplosion");
             Instantiate(LExplosionPrefab1, transform.position, Quaternion.identity);
             Destroy(Obj);
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             SExp = (GameObject)Resources.Load("SExplosion");
             Obj = (GameObject)Instantiate(SExp, Enm.transform.position, Quaternion.identity);
             // 作成したオブジェクトを子として登録
