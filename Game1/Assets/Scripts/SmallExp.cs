@@ -5,7 +5,7 @@ public class SmallExp : MonoBehaviour
 {
 
     //GameObject Enemy;
-    float time = 0.6f;
+    float time = 0.4f;
 
     // Use this for initialization
     void Start()
