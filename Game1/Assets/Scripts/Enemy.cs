@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public GameObject SExp;
     public GameObject Obj;
     public GameObject Enm;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +28,8 @@ public class Enemy : MonoBehaviour
         Vector2 min = GetWorldMin();    //カメラの左下座標.
         Vector2 max = GetWorldMax();    //カメラの右上座標.
         pos = transform.position;
-        
-        if(Y < min.y || max.y < Y)
+
+        if (Y < min.y || max.y < Y)
         {
             VY *= -1;
             ClampScreen();
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D c)
     {
         AttackedCnt -= 1;
-        
+
 
         if (AttackedCnt == 0)
         {
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
             // 作成したオブジェクトを子として登録
             Obj.transform.parent = Enm.transform;
         }
-        
+
     }
 
     /// アクセサ.

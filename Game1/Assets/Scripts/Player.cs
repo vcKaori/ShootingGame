@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
                     spd = 0;
                     SetVelocity(dir, spd);
                 }
-                
+
             }
         }
 
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         if (timeElapsed <= 0)
         {
             GameObject bullet = (GameObject)Resources.Load("Bullet");
-            Instantiate(bullet, new Vector3(X, Y, 0), Quaternion.Euler(0, 0, -90));
+            Instantiate(bullet, new Vector3(X+0.3f, Y, 0), Quaternion.Euler(0, 0, -90));
             timeElapsed = 0.25f;
         }
     }
