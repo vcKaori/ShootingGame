@@ -10,13 +10,14 @@ public class Player : MonoBehaviour
     public float dir = 0;    //0~359°方向に移動.
     public float spd = 0; //速さ1.
     private float timeElapsed = 0f;
-    float time = 0.4f;
     float AttackedCnt = 5;
     public GameObject SExp;
-    GameObject Obj;
+    public GameObject Obj;
+    public GameObject Ply;
     // Start is called before the first frame update
     void Start()
     {
+        Ply = gameObject;
 
     }
 
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour
                     spd = 0;
                     SetVelocity(dir, spd);
                 }
-                
+
             }
         }
 
@@ -78,11 +79,9 @@ public class Player : MonoBehaviour
         if (timeElapsed <= 0)
         {
             GameObject bullet = (GameObject)Resources.Load("Bullet");
-            Instantiate(bullet, new Vector3(X, Y, 0), Quaternion.Euler(0, 0, -90));
+            Instantiate(bullet, new Vector3(X+0.5f, Y, 0), Quaternion.Euler(0, 0, -90));
             timeElapsed = 0.25f;
         }
-        
-
     }
 
     void OnTriggerEnter2D(Collider2D c)
@@ -92,7 +91,7 @@ public class Player : MonoBehaviour
         if (AttackedCnt == 0)
         {
             // プレイヤーを削除
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             GameObject LExplosionPrefab2 = (GameObject)Resources.Load("LExplosion");
             Instantiate(LExplosionPrefab2, transform.position, Quaternion.identity);
 
@@ -103,11 +102,11 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             SExp = (GameObject)Resources.Load("SExplosion");
-            Obj = (GameObject)Instantiate(SExp, transform.position, Quaternion.identity);
+            Obj = (GameObject)Instantiate(SExp, Ply.transform.position, Quaternion.identity);
             // 作成したオブジェクトを子として登録
-            Obj.transform.parent = transform;
+            Obj.transform.parent = Ply.transform;
         }
 
     }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float timeElapsed1 = 0.5f;
-    float time = 0.4f;
     float AttackedCnt = 3;
     public static float spd;
     public static Vector3 pos;
     public GameObject SExp;
-    GameObject Obj;
+    public GameObject Obj;
+    public GameObject Enm;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
         float dir = Random.Range(91, 269);    //0~359°方向に移動.
         spd = Random.Range(1, 2.5f); //速さ1~2.5.
         SetVelocity(dir, spd);
+
+        Enm = gameObject;
     }
 
     // Update is called once per frame
@@ -26,8 +28,8 @@ public class Enemy : MonoBehaviour
         Vector2 min = GetWorldMin();    //カメラの左下座標.
         Vector2 max = GetWorldMax();    //カメラの右上座標.
         pos = transform.position;
-        
-        if(Y < min.y || max.y < Y)
+
+        if (Y < min.y || max.y < Y)
         {
             VY *= -1;
             ClampScreen();
@@ -37,7 +39,7 @@ public class Enemy : MonoBehaviour
         if (timeElapsed1 <= 0)
         {
             GameObject eBullet = (GameObject)Resources.Load("EnemyBullet");
-            Instantiate(eBullet, new Vector3(X, Y, 0), Quaternion.Euler(0, 0, 90));
+            Instantiate(eBullet, new Vector3(X-0.15f, Y, 0), Quaternion.Euler(0, 0, 90));
             timeElapsed1 = 1f;
         }
 
@@ -49,26 +51,27 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D c)
     {
         AttackedCnt -= 1;
-        
+
 
         if (AttackedCnt == 0)
         {
             ScoreController.points += 10;
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             GameObject LExplosionPrefab1 = (GameObject)Resources.Load("LExplosion");
             Instantiate(LExplosionPrefab1, transform.position, Quaternion.identity);
             Destroy(Obj);
             Destroy(gameObject);
+
         }
         else
         {
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             SExp = (GameObject)Resources.Load("SExplosion");
-            Obj = (GameObject)Instantiate(SExp, transform.position, Quaternion.identity);
+            Obj = (GameObject)Instantiate(SExp, Enm.transform.position, Quaternion.identity);
             // 作成したオブジェクトを子として登録
-            Obj.transform.parent = transform;
+            Obj.transform.parent = Enm.transform;
         }
-        
+
     }
 
     /// アクセサ.
