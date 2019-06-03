@@ -16,13 +16,21 @@ public class SmallExp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // transformを取得
+       // Transform myTransform = this.transform;
+
+        // objを親として設定
+       // myTransform.parent = homingObj.transform;
 
         time -= Time.deltaTime;
         if (time <= 0)
         {
-            Debug.Log(gameObject.transform.parent.gameObject.name);
-
             Destroy(this.gameObject);
         }
     }
+
+   // public static void Attacked(GameObject c)
+   // {
+    //    homingObj = c;
+   // }
 }
