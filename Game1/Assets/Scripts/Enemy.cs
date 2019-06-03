@@ -5,21 +5,21 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float timeElapsed1 = 0.5f;
+    float time = 0.2f;
     float AttackedCnt = 3;
     public static float spd;
     public static Vector3 pos;
     public GameObject SExp;
-    public GameObject Obj;
-    public GameObject Enm;
+    GameObject Obj;
     
+
+
     // Start is called before the first frame update
     void Start()
     {
         float dir = Random.Range(91, 269);    //0~359°方向に移動.
         spd = Random.Range(1, 2.5f); //速さ1~2.5.
         SetVelocity(dir, spd);
-
-        Enm = gameObject;
     }
 
     // Update is called once per frame
@@ -43,6 +43,14 @@ public class Enemy : MonoBehaviour
             timeElapsed1 = 1f;
         }
 
+        if(AttackedCnt <= 0)
+        {
+            time -= Time.deltaTime;
+            if(time <= 0){
+                Destroy(gameObject);
+            }
+        }
+
         if (X < min.x - 0.5)
         {
             Destroy(gameObject);
@@ -59,17 +67,16 @@ public class Enemy : MonoBehaviour
             // 爆発エフェクトを生成する	
             GameObject LExplosionPrefab1 = (GameObject)Resources.Load("LExplosion");
             Instantiate(LExplosionPrefab1, transform.position, Quaternion.identity);
-            Destroy(Obj);
-            Destroy(gameObject);
 
         }
         else
         {
             // 爆発エフェクトを生成する	
             SExp = (GameObject)Resources.Load("SExplosion");
-            Obj = (GameObject)Instantiate(SExp, Enm.transform.position, Quaternion.identity);
+            //SmallExp.Attacked(c.gameObject);
+            Obj = (GameObject)Instantiate(SExp, transform.position, Quaternion.identity);
             // 作成したオブジェクトを子として登録
-            Obj.transform.parent = Enm.transform;
+            Obj.transform.parent = transform;
         }
         
     }
