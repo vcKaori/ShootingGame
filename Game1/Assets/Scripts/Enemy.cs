@@ -10,9 +10,8 @@ public class Enemy : MonoBehaviour
     public static float spd;
     public static Vector3 pos;
     public GameObject SExp;
-    GameObject Obj;
-    
-
+    public GameObject Obj;
+    public GameObject Enm;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +27,8 @@ public class Enemy : MonoBehaviour
         Vector2 min = GetWorldMin();    //カメラの左下座標.
         Vector2 max = GetWorldMax();    //カメラの右上座標.
         pos = transform.position;
-        
-        if(Y < min.y || max.y < Y)
+
+        if (Y < min.y || max.y < Y)
         {
             VY *= -1;
             ClampScreen();
@@ -59,26 +58,26 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D c)
     {
         AttackedCnt -= 1;
-        
+
 
         if (AttackedCnt == 0)
         {
             ScoreController.points += 10;
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             GameObject LExplosionPrefab1 = (GameObject)Resources.Load("LExplosion");
             Instantiate(LExplosionPrefab1, transform.position, Quaternion.identity);
 
         }
         else
         {
-            // 爆発エフェクトを生成する	
+            // 爆発エフェクトを生成する
             SExp = (GameObject)Resources.Load("SExplosion");
             //SmallExp.Attacked(c.gameObject);
             Obj = (GameObject)Instantiate(SExp, transform.position, Quaternion.identity);
             // 作成したオブジェクトを子として登録
             Obj.transform.parent = transform;
         }
-        
+
     }
 
     /// アクセサ.

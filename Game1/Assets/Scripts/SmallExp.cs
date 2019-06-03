@@ -5,13 +5,12 @@ public class SmallExp : MonoBehaviour
 {
 
     //GameObject Enemy;
-    public static GameObject homingObj;
-    float time = 0.2f;
+    float time = 0.6f;
 
     // Use this for initialization
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
